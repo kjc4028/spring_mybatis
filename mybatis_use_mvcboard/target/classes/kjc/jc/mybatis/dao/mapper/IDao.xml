@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kjc.jc.mybatis.dao.IDao">
+
+	<select id="listDao" resultType="kjc.jc.mybatis.Dto.ContentDto">
+		SELECT * FROM CONTENT ORDER BY MID DESC
+	</select>
+
+	<select id="listDao1" resultType="kjc.jc.mybatis.Dto.BoardDto">
+		SELECT * FROM BOARD1 ORDER BY BID DESC
+	</select>
+
+
+
+	<insert id="writeDao1" parameterType="kjc.jc.mybatis.Dto.BoardDto">
+		<selectKey keyProperty="bGroup" resultType="int" order="BEFORE">
+			select max(bId)+1 from board1
+		</selectKey>
+		insert into board1(bName,bTitle,bContent,bHit,bGroup,bStep,bIndent)
+		values (#{param1},#{param2},#{param3},0,#{bGroup},0,0)
+	</insert>
+	
+	<update id="readcnt" parameterType="kjc.jc.mybatis.Dto.BoardDto">
+	update board1 set bHit = bHit+1 where bId =#{param1}
+	</update>
+	
+	
+
+</mapper>
